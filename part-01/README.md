@@ -1,190 +1,119 @@
-# 🐧 Part 1: Linux Basics (Navigation, Files, Editing)
+# 🐧 Part 1: Linux Fundamentals & Setup
 
-Welcome to **Part 1** of the Linux Complete Guide. In this section, we will cover the fundamental commands for navigating the filesystem, managing files/folders, and viewing/editing file contents.
+Welcome to **Part 1** of the Ultimate Linux Guide. In this section, we will cover the fundamentals of Linux, its core components, comparison with Windows, and how to set up Linux on different platforms.
 
 ---
 
 ## 📑 Table of Contents
-1. [Navigation](#1-navigation)
-2. [File / Folder Operations](#2-file--folder-operations)
-3. [Viewing / Editing Files](#3-viewing--editing-files)
+1. [What is Linux?](#1-what-is-linux)
+2. [Linux vs Windows](#2-linux-vs-windows)
+3. [Core Components of Linux](#3-core-components-of-linux)
+4. [Linux Folder Structure (FHS)](#4-linux-folder-structure-fhs)
+5. [Setup Linux on Windows & MacOS](#5-setup-linux-on-windows--macos)
 
 ---
 
-## 1. Navigation
+## 1. What is Linux?
 
-### 📂 Check Current Directory
+Linux is an open-source, Unix-like operating system kernel. It was created by **Linus Torvalds** in 1991. Today, Linux powers everything from servers and smartphones (Android) to supercomputers and embedded devices.
+
+### Key Features:
+- **Open Source:** Free to use, modify, and distribute.
+- **Multi-user:** Multiple users can use the system simultaneously.
+- **Multitasking:** Multiple processes can run at the same time.
+- **Portable:** Runs on various hardware platforms.
+- **Secure:** Strong permissions and user management.
+
+---
+
+## 2. Linux vs Windows
+
+| Feature | Linux | Windows |
+| :--- | :--- | :--- |
+| **Source Code** | Open Source | Closed Source |
+| **Cost** | Free | Paid (License) |
+| **Security** | More Secure | Less Secure |
+| **File System** | ext4, XFS, Btrfs | NTFS, FAT32 |
+| **Case Sensitivity** | Case-sensitive | Case-insensitive |
+| **Package Manager** | apt, yum, dnf | MSI, EXE |
+| **Shell** | Bash, Zsh, Fish | PowerShell, CMD |
+| **Use Case** | Servers, DevOps, Cloud | Desktop, Gaming |
+
+---
+
+## 3. Core Components of Linux
+
+1. **Kernel:** The core of the OS. Manages hardware, memory, processes, and system calls.
+2. **Shell:** Command-line interface (CLI) that interprets user commands. Examples: Bash, Zsh, Fish.
+3. **File System:** Organizes and stores files. Examples: ext4, XFS, Btrfs.
+4. **Process Management:** Handles creation, scheduling, and termination of processes.
+5. **User Space:** Where user applications run.
+6. **Init System:** First process (PID 1) that starts other services. Examples: systemd, SysVinit.
+
+---
+
+## 4. Linux Folder Structure (FHS)
+
+The **Filesystem Hierarchy Standard (FHS)** defines the directory structure in Linux.
+
+| Directory | Purpose |
+| :--- | :--- |
+| `/` | Root directory (everything starts here) |
+| `/bin` | Essential user binaries (e.g., `ls`, `cp`) |
+| `/sbin` | System binaries (e.g., `fdisk`, `iptables`) |
+| `/etc` | Configuration files (e.g., `/etc/passwd`, `/etc/hosts`) |
+| `/home` | User home directories (e.g., `/home/shivam`) |
+| `/root` | Root user's home directory |
+| `/var` | Variable data (logs, spool, cache) |
+| `/tmp` | Temporary files (cleared on reboot) |
+| `/usr` | User utilities and applications |
+| `/opt` | Optional software packages |
+| `/dev` | Device files (e.g., `/dev/sda`, `/dev/null`) |
+| `/proc` | Process and kernel information (virtual filesystem) |
+| `/sys` | System and hardware information |
+| `/mnt` | Temporary mount point |
+| `/media` | Removable media (USB, CD-ROM) |
+
+---
+
+## 5. Setup Linux on Windows & MacOS
+
+### On Windows:
+1. **WSL2 (Windows Subsystem for Linux):**
+   ```bash
+   wsl --install
+   ```
+    - Install Ubuntu from Microsoft Store.
+    - Best for development.
+
+2. **VirtualBox/VMware:**
+
+    - Download Ubuntu ISO from ubuntu.com.
+    - Create a VM and install.
+
+3. **Dual Boot:**
+
+- Install Linux alongside Windows.
+
+### On MacOS:
+1. **Docker:**
+
 ```bash
-pwd
-```
-👉 Present Working Directory — shows where you currently are.
-
-### 📂 List Files/Folders
-```bash
-ls
-```
-#### Advanced:
-
-```bash
-ls -la
-```
-
-- `-l` → Detailed view (permissions, owner, size, date)
-- `-a` → Show hidden files too (e.g., .bashrc, .git)
-- `-h` → Human-readable sizes (e.g., 1K, 2M)
-- `-t` → Sort by modification time (newest first)
-- `-r` → Reverse order while sorting
-
-#### Combined Flags Example:
-```bash
-ls -ltr    # Detailed view, sorted by time, oldest first
-```
-
-### 📂 Change Directory
-```bash
-cd folder_name
-```
-
-#### Special:
-
-```bash
-cd ..       # Go one level up
-cd ~        # Go to home directory
-cd -        # Go back to previous directory
-cd /        # Go to root directory
-```
-
-## 2. File / Folder Operations
-### 📄 Create File
-```bash
-touch file.txt
-```
-- Creates an empty file if it doesn't exist.
-- Updates the timestamp if the file already exists.
-
-### 📁 Create Folder
-```bash
-mkdir folder_name
-mkdir -p parent/child/grandchild   # Create nested folders at once
-```
-- `-p` → Creates parent directories if they don't exist.
-
-- `-v` → Verbose (shows what is being created).
-
-
-
-### ❌ Delete File
-```bash
-rm file.txt
-rm -i file.txt    # Interactive (asks for confirmation)
-rm -f file.txt    # Force delete (no confirmation)
-rm -v file.txt    # Verbose (shows what is being deleted)
-```
-- `-i` → Interactive (prompts before deletion).
-- `-f` → Force (ignores non-existent files, no prompt).
-- `-v` → Verbose (explains what is being done).
-
-### ❌ Delete Folder
-```bash
-rm -r folder_name       # Recursive (deletes everything inside)
-rm -rf folder_name      # Force + Recursive (⚠️ No confirmation)
-
-```
-- `-r` → Recursive (deletes everything inside).
-
-- `-f` → Force (no prompt).
-
-- ⚠️ Warning: Never run `rm -rf /` — it will destroy your system.
-
-
-
-### 📋 Copy
-```bash
-cp file.txt copy.txt
-cp -r folder1 folder2   # Use -r to copy folders
-cp -v file.txt /tmp/    # Verbose (shows what is being copied)
-cp -i file.txt /tmp/    # Interactive (prompts before overwrite)
+docker run -it ubuntu bash
 ```
 
-- `-r` → Recursive (for directories).
-- `-v` → Verbose.
-- `-i` → Interactive.
-- `-p` → Preserve permissions, ownership, and timestamps.
+2. **VirtualBox/VMware:**
+    - Same as Windows.
 
-### 🔁 Move / Rename
-```bash
-mv old.txt new.txt       # Rename
-mv file.txt /tmp/        # Move to another directory
-mv -v file.txt /tmp/     # Verbose
-mv -i file.txt /tmp/     # Interactive
-mv -n file.txt /tmp/     # No-clobber (won't overwrite existing file)
-```
-- `-v` → Verbose.
-- `-i` → Interactive.
-- `-n` → No overwrite.
-
-## 3. Viewing / Editing Files
-### 👀 View File Content
-```bash
-cat file.txt           # View entire content at once
-cat -n file.txt        # Show line numbers
-cat -A file.txt        # Show hidden characters (tabs, line endings)
-head -n 10 file.txt    # First 10 lines
-tail -n 10 file.txt    # Last 10 lines
-tail -f log.txt        # Follow live logs
-```
-
-- `-n` → Number all output lines.
-- `-A` → Show all (including special characters).
-
-### 📜 Scroll View
-```bash
-less file.txt
-```
-- Space → Next page
-- b → Previous page
-- q → Quit
-- /keyword → Search forward
-- ?keyword → Search backward
-
-### ✏️ Edit File
-```bash
-nano file.txt          # Beginner-friendly editor
-vim file.txt           # Advanced editor
-```
-#### Nano Shortcuts:
-- `Ctrl + O` → Save file
-- `Ctrl + X` → Exit
-- `Ctrl + W` → Search
-
-#### Vim Shortcuts:
-
-- `i` → Insert mode
-- `Esc` → Normal mode
-- `:w` → Save
-- `:q` → Quit
-- `:wq` → Save and quit
-- `:q!` → Quit without saving
-
-### 🔍 Search in File
-```bash
-grep "keyword" file.txt
-grep -r "keyword" .     # Recursive search in current directory
-grep -i "keyword" file.txt  # Case-insensitive search
-grep -n "keyword" file.txt  # Show line numbers
-grep -v "keyword" file.txt  # Invert match (show non-matching lines)
-```
-
-- `-r` → Recursive.
-- `-i` → Ignore case.
-- `-n` → Show line numbers.
-- `-v` → Invert match.
-- `-c` → Count matches.
+3. **Cloud (AWS EC2):**
+    - Launch an EC2 instance with Ubuntu AMI.
+    - Connect via SSH.
 
 ---
 
 ## 🎯 What's Next?
-Now that you understand Linux Basics, move on to Part 2: Permissions, Processes & System Info.
+Now that you understand Linux Fundamentals, move on to Part 2: Folder Structure & Navigation.
+
 
 Happy Learning! Keep Exploring Linux! 🐧
 

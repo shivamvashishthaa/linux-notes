@@ -1,141 +1,172 @@
-# 🐧 Part 2: Permissions, Processes & System Info
+# 🐧 Part 2: Folder Structure & Navigation
 
-Welcome to **Part 2** of the Linux Complete Guide. In this section, we will learn about file permissions, managing running processes, and checking system information.
+Welcome to **Part 2** of the Ultimate Linux Guide. In this section, we will learn how to navigate the Linux filesystem and understand its structure.
 
 ---
 
 ## 📑 Table of Contents
-1. [File Permissions](#1-file-permissions)
-2. [System / Process Management](#2-system--process-management)
+1. [Navigation Commands](#1-navigation-commands)
+2. [Understanding Paths](#2-understanding-paths)
+3. [File / Folder Operations](#3-file--folder-operations)
 
 ---
 
-## 1. File Permissions
+## 1. Navigation Commands
 
-### 🔐 Change File Permissions
+### 📂 Check Current Directory
 ```bash
-chmod 755 file.sh
-```
-- 7 = read (4) + write (2) + execute (1) → Owner
-- 5 = read (4) + execute (1) → Group
-- 5 = read (4) + execute (1) → Others
-
-#### Symbolic Mode:
-
-```bash
-chmod +x file.sh       # Add execute permission
-chmod -w file.txt      # Remove write permission
-chmod u+x file.sh      # Add execute for user only
-chmod g-w file.txt     # Remove write for group only
-chmod o+r file.txt     # Add read for others only
-```
-- `u` → User (owner)
-- `g` → Group
-- `o` → Others
-- `a` → All (u+g+o)
-
-**Advanced Flags:**
-
-- `-R` → Recursive (apply to all files in directory).
-- `-v` → Verbose (shows what is being changed).
-
-### 👤 Change Owner
-```bash
-chown user:user file.txt
-chown -R user:user folder/   # Recursive
-chown user file.txt           # Change only user
-chown :group file.txt         # Change only group
-```
-- `-R` → Recursive.
-- `-v` → Verbose.
-
-### 📊 Permission Values (Memorize These)
-| Number   | Permission   | Symbol      |
-| --- | --------- | ----------- |
-| 0  | No permission    |  `---` |
-| 1  | Execute    |  `-x` |
-| 2  | Write    |  `-w-` |
-| 3  | Write + Execute  |  `-wx` |
-| 4  | Read    |  `r--` |
-| 5  | Read + Execute    |  `r-x` |
-| 6  | Read + Write    |  `rw-` |
-| 7  | Read + Write + Execute    |  `rwx` |
-
----
-
-## 2. System / Process Management
-### 🧠 Running Processes
-```bash
-ps aux                 # All running processes
-```
-**Flags Explained:**
-
-- `a` → Show processes for all users.
-- `u` → Display user-oriented format.
-- `x` → Show processes not attached to a terminal.
-
-**Alternative:**
-```bash
-ps -ef                 # Detailed view
+pwd
 ```
 
-- `-e` → Show all processes.
-- `-f` → Full-format listing.
+- Present Working Directory — shows where you currently are.
 
-### 🔍 Real-time Processes
+### 📂 List Files/Folders
 ```bash
-top                    # Live process viewer
-```
-Useful shortcuts inside top:
-
-- `q` → Quit
-- `k` → Kill a process
-- `M` → Sort by memory usage
-- `P` → Sort by CPU usage
-
-**Better Alternative:**
-
-```bash
-htop                   # Better version (needs installation)
-```
-- Needs installation: sudo apt install htop
-- Colorful, interactive, and easier to use.
-
-
-### ❌ Kill Process
-```bash
-kill <PID>             # Graceful kill
+ls
 ```
 **Advanced:**
 
 ```bash
-kill -9 <PID>          # Force kill (SIGKILL)
-kill -15 <PID>         # Graceful kill (SIGTERM)
-pkill process_name     # Kill by name
-killall process_name   # Kill all instances by name
+ls -la
 ```
-**Signal Numbers:**
-- `-9` → SIGKILL (force kill, cannot be ignored).
-- `-15` → SIGTERM (graceful termination, default).
-- `-1` → SIGHUP (hang up).
+- `-l` → Detailed view (permissions, owner, size, date)
 
+- `-a` → Show hidden files too (e.g., .bashrc, .git)
 
-### 🖥️ System Info
+- `-h` → Human-readable sizes (e.g., 1K, 2M)
+
+- `-t` → Sort by modification time (newest first)
+
+- `-r` → Reverse order while sorting
+
+**Combined Flags Example:**
+
 ```bash
-uname -a               # Kernel info
-df -h                  # Disk usage (human-readable)
-free -h                # RAM usage
-uptime                 # System uptime
-whoami                 # Current user
+ls -ltr    # Detailed view, sorted by time, oldest first
 ```
-- `-h` → Human-readable (e.g., 1K, 2M, 1G).
+### 📂 Change Directory
+```bash
+cd folder_name
+```
+
+**Special:**
+
+```bash
+cd ..       # Go one level up
+cd ~        # Go to home directory
+cd -        # Go back to previous directory
+cd /        # Go to root directory
+```
+## 2. Understanding Paths
+### Absolute Path:
+Starts with `/` (e.g., `/home/shivam/file.txt`).
+
+### Relative Path:
+Starts from current directory (e.g., `../file.txt`).
+
+### Special Path Symbols:
+
+| #   | Symbol    | Meaning     |
+| --- | -------- | ------------- |
+| 01  | `.`    | Current directory |
+| 02  | `..`    | Parent directory |
+| 03  | `~`    | Home directory |
+| 04  | `/`    | Root directory |
+
+
+## 3. File / Folder Operations
+### 📄 Create File
+```bash
+touch file.txt
+```
+- Creates an empty file if it doesn't exist.
+- Updates the timestamp if the file already exists.
+
+### 📁 Create Folder
+```bash
+mkdir folder_name
+```
+**Advanced:**
+
+```bash
+mkdir -p parent/child/grandchild   # Create nested folders at once
+```
+- `-p` → Creates parent directories if they don't exist.
+
+- `-v` → Verbose (shows what is being created).
+
+### ❌ Delete File
+```bash
+rm file.txt
+```
+**Advanced:**
+
+```bash
+rm -i file.txt    # Interactive (asks for confirmation)
+rm -f file.txt    # Force delete (no confirmation)
+rm -v file.txt    # Verbose (shows what is being deleted)
+```
+- `-i` → Interactive (prompts before deletion).
+
+- `-f` → Force (ignores non-existent files, no prompt).
+
+- `-v` → Verbose.
+
+### ❌ Delete Folder
+```bash
+rm -r folder_name
+```
+**Advanced:**
+
+```bash
+rm -rf folder_name      # Force + Recursive (⚠️ No confirmation)
+```
+- `-r` → Recursive (deletes everything inside).
+- `-f` → Force (no prompt).
+- ⚠️ Warning: Never run rm -rf / — it will destroy your system.
+
+### 📋 Copy
+```bash
+cp file.txt copy.txt
+```
+
+**Advanced:**
+
+```bash
+cp -r folder1 folder2   # Copy folders recursively
+cp -v file.txt /tmp/    # Verbose
+cp -i file.txt /tmp/    # Interactive
+cp -p file.txt /tmp/    # Preserve permissions and timestamps
+```
+- `-r` → Recursive (for directories).
+- `-v` → Verbose.
+- `-i` → Interactive.
+- `-p` → Preserve.
+
+### 🔁 Move / Rename
+```bash
+mv old.txt new.txt       # Rename
+mv file.txt /tmp/        # Move to another directory
+```
+
+**Advanced:**
+
+```bash
+mv -v file.txt /tmp/     # Verbose
+mv -i file.txt /tmp/     # Interactive
+mv -n file.txt /tmp/     # No-clobber (won't overwrite)
+```
+- `-v` → Verbose.
+- `-i` → Interactive.
+- `-n` → No overwrite.
 
 ---
 
 ## 🎯 What's Next?
-Now that you understand Permissions & Processes, move on to Part 3: Networking, Packages & Sudo.
+Now that you understand Folder Structure & Navigation, move on to Part 3: File Management & VI Editor.
 
 Happy Learning! Keep Exploring Linux! 🐧
----
-[< Previous](../part-01/README.md) ---- [Next >](../part-03/README.md)
 
+---
+
+[< Previous](../part-01/README.md) ---- [Next >](../part-03/README.md)

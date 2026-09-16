@@ -1,130 +1,175 @@
-# 🐧 Part 3: Networking, Packages & Sudo
+# 🐧 Part 3: File Management & VI Editor
 
-Welcome to **Part 3** of the Linux Complete Guide. In this section, we will cover networking commands, package management on Ubuntu, and using sudo for admin privileges.
+Welcome to **Part 3** of the Ultimate Linux Guide. In this section, we will learn how to view, edit, and manage files, along with mastering the VI Editor.
 
 ---
 
 ## 📑 Table of Contents
-1. [Networking (Important for SSH)](#1-networking-important-for-ssh)
-2. [Package Management (Ubuntu)](#2-package-management-ubuntu)
-3. [Sudo (Admin Power)](#3-sudo-admin-power)
+1. [Viewing File Content](#1-viewing-file-content)
+2. [Editing Files](#2-editing-files)
+3. [VI Editor Shortcuts](#3-vi-editor-shortcuts)
+4. [Searching in Files](#4-searching-in-files)
 
 ---
 
-## 1. Networking (Important for SSH)
+## 1. Viewing File Content
 
-### 🌐 Check IP Address
+### 👀 View File Content
 ```bash
-ip a                   # Modern command
-```
-- `a` → Show all interfaces (up and down).
-```bash
-ifconfig               # Legacy command (requires net-tools)
-hostname -I            # Only IP address
-```
-- `-I` → Show all network addresses.
-
-### 🔌 SSH Connect
-```bash
-ssh user@IP
-```
-**Advanced:**
-
-```bash
-ssh -i key.pem user@IP   # With private key
-ssh -p 2222 user@IP       # Custom port
-```
-- `-i` → Identity file (private key).
-- `-p` → Port number.
-
-### 📡 Ping
-```bash
-ping google.com
-```
-**Advanced:**
-```bash
-ping -c 4 google.com     # Send only 4 packets
-ping -i 2 google.com     # Interval of 2 seconds between packets
-```
-- `-c` → Count (number of packets).
-- `-i` → Interval (time between packets).
-- `-W` → Timeout for each reply.
-
-
-### 🌍 DNS Lookup
-```bash
-nslookup google.com
-dig google.com
-```
-
-Flags for `dig`:
-
-- `+short` → Short output.
-- `+trace` → Trace DNS resolution path.
-
-### 📥 File Transfer
-```bash
-scp file.txt user@IP:/path/     # Local to remote
-scp user@IP:/path/file.txt .    # Remote to local
+cat file.txt
 ```
 
 **Advanced:**
 
 ```bash
-scp -r folder/ user@IP:/path/   # Recursive (for folders)
-scp -P 2222 file.txt user@IP:/  # Custom port
+cat -n file.txt        # Show line numbers
+cat -A file.txt        # Show hidden characters (tabs, line endings)
+```
+- `-n` → Number all output lines.
+- `-A` → Show all (including special characters).
+
+### 📜 Scroll View
+```bash
+less file.txt
+```
+**Navigation inside** `less`:
+- `Space` → Next page
+- `b` → Previous page
+- `q` → Quit
+- `/keyword` → Search forward
+- `?keyword` → Search backward
+
+### 📄 Head & Tail
+```bash
+head -n 10 file.txt    # First 10 lines
+tail -n 10 file.txt    # Last 10 lines
+tail -f log.txt        # Follow live logs
+```
+- `-n` → Number of lines.
+- `-f` → Follow (continuously output appended data).
+
+## 2. Editing Files
+### ✏️ Nano Editor (Beginner-friendly)
+```bash
+nano file.txt
+```
+**Nano Shortcuts:**
+- `Ctrl + O` → Save file
+- `Ctrl + X` → Exit
+- `Ctrl + W` → Search
+- `Ctrl + K` → Cut line
+- `Ctrl + U` → Paste line
+
+### ✏️ Vim Editor (Advanced)
+```bash
+vim file.txt
+```
+
+**Vim Modes:**
+
+- Normal Mode: Default mode (for navigation and commands).
+- Insert Mode: Press i to enter (for typing).
+- Visual Mode: Press v to enter (for selecting text).
+- Command Mode: Press : to enter (for saving, quitting).
+
+## 3. VI Editor Shortcuts
+### Basic Commands:
+
+| Command    | Meaning     |
+| -------- | ------------- |
+| `i`    | Insert before cursor |
+| `I`    | Insert at beginning of line |
+| `a`    | Append after cursor |
+| `A`    | Append at end of line |
+| `o`    | Open new line below |
+| `O`    | Open new line above |
+| `Esc`    | Return to Normal mode |
+
+
+### Navigation:
+
+| Command    | Meaning     |
+| -------- | ------------- |
+| `h`    | Move left |
+| `j`    | Move down |
+| `k`    | Move up |
+| `l`    |Move right|
+| `w`    |	Move to next word|
+| `b`    | Move to previous word|
+| `0`    | Move to beginning of line |
+| `$`    | Move to end of line|
+| `gg`    | Go to first line |
+| `G`    | Go to last line |
+| `:n`    | Go to line number `n` |
+
+### Editing:
+
+| Command    | Meaning     |
+| -------- | ------------- |
+| `x`    | Delete character |
+| `dd`    | Delete line |
+| `yy`    | 	Copy line |
+| `p`    |Paste below|
+| `P`    |	Paste above|
+| `u`    | Undo|
+| `Ctrl + r`    | Redo|
+| `:w`    | 	Save|
+| `:q`    | 	Quit |
+| `:wq`    | 	Save and quit |
+| `:q!`    | 	Quit without saving |
+
+
+## Search & Replace:
+
+| Command    | Meaning     |
+| -------- | ------------- |
+| `/keyword`    | Search forward |
+| `?keyword`    | Search backward |
+| `n`    | 	Next match |
+| `N`    |Previous match|
+| `:%s/old/new/g`    | Replace all occurrences|
+| `:%s/old/new/gc`    | 	Replace with confirmation|
+
+## 4. Searching in Files
+### 🔍 Grep Command
+```bash
+grep "keyword" file.txt
+```
+
+**Advanced:**
+
+```bash
+grep -r "keyword" .     # Recursive search
+grep -i "keyword" file.txt  # Case-insensitive
+grep -n "keyword" file.txt  # Show line numbers
+grep -v "keyword" file.txt  # Invert match
+grep -c "keyword" file.txt  # Count matches
 ```
 - `-r` → Recursive.
-- `-P` → Port (uppercase).
+- `-i` → Ignore case.
+- `-n` → Show line numbers.
+- `-v` → Invert match.
+- `-c` → Count.
 
-## 2. Package Management (Ubuntu)
-### 📦 Install Package
+### 🔍 Find Command
 ```bash
-sudo apt install package_name
-sudo apt install -y package_name    # Auto-confirm
+find /path -name "file.txt"
 ```
-### 🔄 Update
-```bash
-sudo apt update         # Update package list
-sudo apt upgrade        # Upgrade installed packages
-sudo apt full-upgrade   # Upgrade including kernel
-```
-### ❌ Remove Package
-```bash
-sudo apt remove package_name
-sudo apt purge package_name      # Delete config files too
-sudo apt autoremove              # Remove unused dependencies
-```
-### 🔍 Search Package
-```bash
-apt search package_name
-apt list --installed             # List installed packages
-```
-- `--installed` → Show only installed packages.
-- `--upgradable` → Show upgradable packages.
-
-## 3. Sudo (Admin Power)
-```bash
-sudo command
-```
-👉 Used for admin privileges. To switch to root user:
+**Advanced:**
 
 ```bash
-sudo su -              # Switch to root user
-sudo -i                # Root shell
+find / -type f -size +100M 2>/dev/null   # Find large files
+find / -mtime -7                         # Files modified in last 7 days
+find / -name "*.log"                     # Find by extension
 ```
-- `-i` → Simulate initial login.
-- `-s` → Run shell as root.
+- `-type f` → Files only.
+- `-size +100M` → Larger than 100MB.
+- `-mtime -7` → Modified in last 7 days.
+- `-name` → By name pattern.
 
-
-### Edit Sudoers File (⚠️ Careful)
-```bash
-sudo visudo
-```
-Always use `visudo` instead of directly editing `/etc/sudoers`.
-
-### 🎯 What's Next?
-Now that you understand Networking & Packages, move on to Part 4: User Management, Disk, Archive & Curl.
+---
+## 🎯 What's Next?
+Now that you understand File Management & VI Editor, move on to Part 4: Permissions & User Management.
 
 Happy Learning! Keep Exploring Linux! 🐧
 

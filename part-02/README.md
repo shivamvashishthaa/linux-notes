@@ -25,13 +25,30 @@ chmod 755 file.sh
 ```bash
 chmod +x file.sh       # Add execute permission
 chmod -w file.txt      # Remove write permission
+chmod u+x file.sh      # Add execute for user only
+chmod g-w file.txt     # Remove write for group only
+chmod o+r file.txt     # Add read for others only
 ```
+- `u` → User (owner)
+- `g` → Group
+- `o` → Others
+- `a` → All (u+g+o)
+
+**Advanced Flags:**
+
+- `-R` → Recursive (apply to all files in directory).
+- `-v` → Verbose (shows what is being changed).
 
 ### 👤 Change Owner
 ```bash
 chown user:user file.txt
 chown -R user:user folder/   # Recursive
+chown user file.txt           # Change only user
+chown :group file.txt         # Change only group
 ```
+- `-R` → Recursive.
+- `-v` → Verbose.
+
 ### 📊 Permission Values (Memorize These)
 | Number   | Permission   | Symbol      |
 | --- | --------- | ----------- |
@@ -50,19 +67,59 @@ chown -R user:user folder/   # Recursive
 ### 🧠 Running Processes
 ```bash
 ps aux                 # All running processes
+```
+**Flags Explained:**
+
+- `a` → Show processes for all users.
+- `u` → Display user-oriented format.
+- `x` → Show processes not attached to a terminal.
+
+**Alternative:**
+```bash
 ps -ef                 # Detailed view
 ```
+
+- `-e` → Show all processes.
+- `-f` → Full-format listing.
+
 ### 🔍 Real-time Processes
 ```bash
 top                    # Live process viewer
+```
+Useful shortcuts inside top:
+
+- `q` → Quit
+- `k` → Kill a process
+- `M` → Sort by memory usage
+- `P` → Sort by CPU usage
+
+**Better Alternative:**
+
+```bash
 htop                   # Better version (needs installation)
 ```
+- Needs installation: sudo apt install htop
+- Colorful, interactive, and easier to use.
+
+
 ### ❌ Kill Process
 ```bash
 kill <PID>             # Graceful kill
-kill -9 <PID>          # Force kill (⚠️ May cause data loss)
-pkill process_name     # Kill by name
 ```
+**Advanced:**
+
+```bash
+kill -9 <PID>          # Force kill (SIGKILL)
+kill -15 <PID>         # Graceful kill (SIGTERM)
+pkill process_name     # Kill by name
+killall process_name   # Kill all instances by name
+```
+**Signal Numbers:**
+- `-9` → SIGKILL (force kill, cannot be ignored).
+- `-15` → SIGTERM (graceful termination, default).
+- `-1` → SIGHUP (hang up).
+
+
 ### 🖥️ System Info
 ```bash
 uname -a               # Kernel info
@@ -71,6 +128,10 @@ free -h                # RAM usage
 uptime                 # System uptime
 whoami                 # Current user
 ```
+- `-h` → Human-readable (e.g., 1K, 2M, 1G).
+
+---
+
 ## 🎯 What's Next?
 Now that you understand Permissions & Processes, move on to Part 3: Networking, Packages & Sudo.
 

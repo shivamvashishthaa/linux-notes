@@ -16,30 +16,67 @@ Welcome to **Part 3** of the Linux Complete Guide. In this section, we will cove
 ### 🌐 Check IP Address
 ```bash
 ip a                   # Modern command
+```
+- `a` → Show all interfaces (up and down).
+```bash
 ifconfig               # Legacy command (requires net-tools)
 hostname -I            # Only IP address
 ```
+- `-I` → Show all network addresses.
 
 ### 🔌 SSH Connect
 ```bash
 ssh user@IP
-ssh -i key.pem user@IP   # With private key
 ```
+**Advanced:**
+
+```bash
+ssh -i key.pem user@IP   # With private key
+ssh -p 2222 user@IP       # Custom port
+```
+- `-i` → Identity file (private key).
+- `-p` → Port number.
+
 ### 📡 Ping
 ```bash
 ping google.com
-ping -c 4 google.com     # Send only 4 packets
 ```
+**Advanced:**
+```bash
+ping -c 4 google.com     # Send only 4 packets
+ping -i 2 google.com     # Interval of 2 seconds between packets
+```
+- `-c` → Count (number of packets).
+- `-i` → Interval (time between packets).
+- `-W` → Timeout for each reply.
+
+
 ### 🌍 DNS Lookup
 ```bash
 nslookup google.com
 dig google.com
 ```
+
+Flags for `dig`:
+
+- `+short` → Short output.
+- `+trace` → Trace DNS resolution path.
+
 ### 📥 File Transfer
 ```bash
 scp file.txt user@IP:/path/     # Local to remote
 scp user@IP:/path/file.txt .    # Remote to local
 ```
+
+**Advanced:**
+
+```bash
+scp -r folder/ user@IP:/path/   # Recursive (for folders)
+scp -P 2222 file.txt user@IP:/  # Custom port
+```
+- `-r` → Recursive.
+- `-P` → Port (uppercase).
+
 ## 2. Package Management (Ubuntu)
 ### 📦 Install Package
 ```bash
@@ -63,6 +100,9 @@ sudo apt autoremove              # Remove unused dependencies
 apt search package_name
 apt list --installed             # List installed packages
 ```
+- `--installed` → Show only installed packages.
+- `--upgradable` → Show upgradable packages.
+
 ## 3. Sudo (Admin Power)
 ```bash
 sudo command
@@ -73,10 +113,16 @@ sudo command
 sudo su -              # Switch to root user
 sudo -i                # Root shell
 ```
+- `-i` → Simulate initial login.
+- `-s` → Run shell as root.
+
+
 ### Edit Sudoers File (⚠️ Careful)
 ```bash
 sudo visudo
 ```
+Always use `visudo` instead of directly editing `/etc/sudoers`.
+
 ### 🎯 What's Next?
 Now that you understand Networking & Packages, move on to Part 4: User Management, Disk, Archive & Curl.
 

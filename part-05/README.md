@@ -1,9 +1,3 @@
-
----
-
-### 📋 File 6: `Part-5-Process-Management-Monitoring.md`
-
-```markdown
 # 🐧 Part 5: Process Management & Monitoring
 
 Welcome to **Part 5** of the Ultimate Linux Guide. In this section, we will learn how to manage processes and monitor system performance.

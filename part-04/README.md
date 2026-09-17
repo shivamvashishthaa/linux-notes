@@ -206,6 +206,185 @@ Root user has UID 0.
 
 ---
 
+### Group
+Groups are used for giving permissions to multiple users at once, without giving permissions to each user individually."
+
+### 👥 1. Check Current User's Groups
+```bash
+groups
+```
+**Output:**
+
+```text
+shivam sudo docker
+```
+👉 This shows which groups you belong to.
+
+### 👥 2. Check a Specific User's Groups
+```bash
+groups username
+```
+Example:
+
+```bash
+groups shivam
+```
+Output:
+
+```text
+shivam : shivam sudo docker
+```
+### 👥 3. Check Groups Using the id Command
+```bash
+id
+```
+Output:
+
+```text
+uid=1000(shivam) gid=1000(shivam) groups=1000(shivam),27(sudo),999(docker)
+```
+- `uid` → User ID
+- `gid` → Primary Group ID
+- `groups` → All groups (primary + secondary)
+
+**For a specific user:**
+
+```bash
+id shivam
+```
+### 👥 4. Check All Groups on the System
+```bash
+cat /etc/group
+```
+Output:
+
+```text
+root:x:0:
+sudo:x:27:shivam
+docker:x:999:shivam
+shivam:x:1000:
+```
+Format: group_name:password:GID:members
+
+| **Part** | **Meaning** |
+| :--- | :--- |
+| **`group_name`** | Name of the group |
+| **`x`** | Password (usually x means it's in the shadow file) |
+| **`GID`** | Group ID |
+| **`members`** | Members of this group (comma separated) |
+
+**Modern command:**
+
+```bash
+getent group
+```
+👉 This shows groups from /etc/group as well as network groups.
+
+### 👥 5. Check Members of a Specific Group
+```bash
+getent group sudo
+```
+Output:
+
+```text
+sudo:x:27:shivam
+```
+👉 This means only shivam is in the sudo group.
+
+### 👥 6. Check Group ID (GID)
+```bash
+getent group 27
+```
+Output:
+
+```text
+sudo:x:27:shivam
+```
+### 👥 7. Check a User's Primary Group
+```bash
+id -gn username
+```
+Example:
+
+```bash
+id -gn shivam
+```
+Output:
+
+```text
+shivam
+```
+### 👥 8. Check All Group Names of a User (Names Only)
+```bash
+id -nG username
+```
+Example:
+
+```bash
+id -nG shivam
+```
+Output:
+
+```text
+shivam sudo docker
+```
+
+### 📊 Summary Table
+| **What to Check?** | **Command** |
+| :--- | :--- |
+| **Current user's groups** | groups |
+| **Specific user's groups** | groups username |
+| **User ID + Group ID + Groups** | id |
+| **Specific user's details	** | id	username |
+| **All system groups** | cat /etc/group |
+| **All groups (modern)** | getent group |
+| **Members of a specific group** | 	id -gn username |
+| **Primary group name** | groups |
+| **All group names** | id -nG username |
+  
+### 🎯 Real-World Examples
+Example 1: Check if a User is in the Sudo Group
+```bash
+groups shivam | grep sudo
+```
+Output:
+
+```text
+shivam : shivam sudo docker
+```
+👉 If sudo appears, the user has sudo access.
+
+Example 2: Check All Members of the Docker Group
+```bash
+getent group docker
+```
+Output:
+
+```text
+docker:x:999:shivam
+```
+Example 3: User's Groups with Numeric IDs
+```bash
+id shivam
+```
+Output:
+
+```text
+uid=1000(shivam) gid=1000(shivam) groups=1000(shivam),27(sudo),999(docker)
+```
+💡 Quick Tip
+If you want only group names (no IDs):
+
+```bash
+id -nG
+```
+If you want only the primary group:
+
+```bash
+id -gn
+```
+---
+
 ## 🎯 What's Next?
 Now that you understand Permissions & User Management, move on to Part 5: Process Management & Monitoring.
 

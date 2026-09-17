@@ -44,6 +44,28 @@ chmod a+r file.txt     # Add read for all
 - `-R` → Recursive (apply to all files in directory).
 - `-v` → Verbose.
 
+### Basic Command: ls -l
+```bash
+ls -l
+```
+**Output Example:**
+
+```text
+-rwxr-xr-- 1 shivam shivam 1024 Sep 17 10:30 file.sh
+```
+| **Part** | **Meaning** |
+| :--- | :--- |
+| **`-`** | File type (- = file, d = directory, l = link) |
+| **`rwx`** | Owner permissions (read, write, execute) |
+| **`r-x`** | Group permissions (read, execute) |
+| **`r--`** | Others permissions (read only) |
+| **`1`** | Number of hard links |
+| **`shivam`** | Owner name |
+| **`shivam`** | Group name |
+| **`1024`** | File size (in bytes) |
+| **`Sep 17 10:30`** | Last modified date/time |
+| **`file.sh`** | File name |
+
 ### 👤 Change Owner
 ```bash
 chown user:user file.txt

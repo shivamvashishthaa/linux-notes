@@ -24,6 +24,7 @@ Whether you are a beginner or an experienced developer, this repo will serve as 
 | **Part 5** | Process Management & Monitoring | [Go to Part 5 ➔](./part-05/README.md) |
 | **Part 6** | Networking, Disk & Packages | [Go to Part 6 ➔](./part-06/README.md) |
 | **Part 7** | Mistakes, Interview Q&A & Bonus | [Go to Part 7 ➔](./part-07/README.md) |
+| **Part 8** | Linux CPU Management & Troubleshooting | [Go to Part 8 ➔](./part-08/README.md) |
 
 ---
 

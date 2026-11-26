@@ -1,4 +1,4 @@
-# Part 8: Linux Disk I/O – Input / Output Management & Troubleshooting
+# Part 9: Linux Disk I/O – Input / Output Management & Troubleshooting
 
 Production environments mein Disk I/O bottleneck ek common performance problem hai.
 

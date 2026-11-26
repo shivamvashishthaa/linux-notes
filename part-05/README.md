@@ -17,7 +17,9 @@ Welcome to **Part 5** of the Ultimate Linux Guide. In this section, we will lear
 ```bash
 ps aux
 ```
-
+```bash
+ps aux --sort=-%cpu
+```
 **Flags Explained:**
 
 - `a` → Show processes for all users.
@@ -31,6 +33,31 @@ ps -ef
 ```
 - `-e` → Show all processes.
 - `-f` → Full-format listing.
+
+### Process details inspect karna
+Ab PID 7223 ko detail mein inspect karenge.
+
+```bash
+ps -p 7223 -o pid,ppid,user,stat,%cpu,%mem,etime,cmd
+```
+
+**Command breakdown:**
+- -p 7223 — particular PID select karo.
+- -o — custom output columns.
+- pid — process ID.
+- ppid — parent process ID.
+- user — process owner.
+- stat — process state.
+- %cpu — CPU utilization.
+- %mem — memory utilization.
+- etime — process kitne samay se exist kar raha hai.
+- cmd — command details.
+
+**output:**
+```text
+PID    PPID   USER      STAT  %CPU  %MEM  ELAPSED     CMD
+7223   7083   shivams+  Sl    3.2   2.8   02:29:08   chrome --type=renderer
+```
 
 ### 🔍 Real-time Processes
 ```bash
@@ -163,6 +190,67 @@ lsusb                  # USB devices
 - -a → All information.
 - -r → Kernel release.
 - -h → Human-readable.
+
+---
+
+## 4. Linux Services & systemd
+Ab tak humne individual processes dekhe. Lekin production server par Spring Boot, PostgreSQL, Nginx jaise applications ko manually terminal se start nahi karte.
+
+Unhe generally Linux Service Manager – systemd manage karta hai.
+
+
+
+systemctl kya hai?
+systemctl systemd service manager se interact karne ka command-line tool hai.
+
+| **Command** | **Purpose** |
+ | :--- | :--- |
+ |systemctl status SERVICE	 | Service ki current condition |
+ |systemctl start SERVICE	 | Service start |
+ |systemctl stop SERVICE	 | Service stop |
+ |systemctl restart SERVICE	 |Restart|
+ |systemctl enable SERVICE	 | Boot par automatic start |
+ |systemctl disable SERVICE	 | Boot par automatic start band |
+ |systemctl reload SERVICE	 | Configuration reload, if supported |
+
+---
+
+## Production troubleshooting commands
+Ye commands regularly use hongi:
+
+
+
+Sirf failed services:
+```bash
+systemctl --failed
+```
+
+Currently active services:
+```bash
+systemctl list-units --type=service --state=running
+```
+
+Boot par enabled services:
+```bash
+systemctl list-unit-files --type=service --state=enabled
+```
+
+Service logs:
+```bash
+sudo journalctl -u ssh
+```
+
+Latest 50 log entries:
+```bash
+sudo journalctl -u ssh -n 50
+```
+
+Live logs:
+```bash
+sudo journalctl -u ssh -f
+```
+
+`-f` ka meaning follow hai: naye log entries aate hi display honge. Exit ke liye Ctrl+C.
 
 ---
 

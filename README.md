@@ -26,6 +26,7 @@ Whether you are a beginner or an experienced developer, this repo will serve as 
 | **Part 7** | Mistakes, Interview Q&A & Bonus | [Go to Part 7 ➔](./part-07/README.md) |
 | **Part 8** | Linux CPU Management & Troubleshooting | [Go to Part 8 ➔](./part-08/README.md) |
 | **Part 9** | Linux I/O Management & Troubleshooting | [Go to Part 9 ➔](./part-09/README.md) |
+| **Part 10** | Linux Networking & Troubleshooting | [Go to Part 10 ➔](./part-10/README.md) |
 
 ---
 

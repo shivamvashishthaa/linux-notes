@@ -1,4 +1,4 @@
-# Linux CPU Management & Troubleshooting
+# Part 8: Linux CPU Management & Troubleshooting
 
 Production environments mein CPU bottleneck ek common performance problem hai.
 
@@ -377,3 +377,8 @@ MiniOrder jaise production applications mein systematic investigation approach f
 5. Find the root cause.
 6. Apply corrective action.
 7. Verify performance recovery.
+
+---
+
+[< Previous](../part-07/README.md) ---- [Next >](../part-09/README.md)
+
